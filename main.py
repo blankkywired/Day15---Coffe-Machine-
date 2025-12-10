@@ -1,6 +1,6 @@
 # first step
 
-coffees = [
+coffes_options = [
     {
         "name": "espresso",
         "water": 50,
@@ -30,6 +30,9 @@ coffees = [
 #or i in coffees[1]:
 #    print(coffees[1][i])
 
-for i in range(len(coffees)):
-    for j in coffees[i]:
-        print(coffees[i][j])
+
+for i in range(len(coffes_options)):
+    for j in coffes_options[i]:
+        print(f"{j}:", coffes_options[i][j])
+    print('\n')
+
