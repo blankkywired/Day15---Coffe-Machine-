@@ -54,3 +54,5 @@ for i in range(len(coffes_options)):
         print(f"{j}:", coffes_options[i][j])
     print('\n')
 
+#TODOS: IMPLEMENTAR A FEATURE DE PEGAR O CAFE ESCOLHIDO PELO USUARIO E SUBTRAIR OS VALORES DOS RECURSOS NECESSARIOS
+# 2 - ADICIONAR FEATURE PARA ACEITAR MOEDAS DO USUARIO
