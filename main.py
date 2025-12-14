@@ -40,23 +40,38 @@ for i in range(len(coffes_options)):
         else:
             continue
 
-userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
-if userChoice == "report":
-    #Exibindo recursos iniciais
-    print('-----------RESOURCES')
+def showResources():
+    print('----------RESOURCES----------')
     for i in resources_InititalValues:
         print(f"{i.capitalize()}: {resources_InititalValues[i]}")
     print('\n')
+ 
+def proccesCoins():
+    quarters = float(input('How many quarters?: '))
+    dimes = float(input('How many dimes?: '))
+    nickles = float(input('How many nickles?: '))
+    pennies = float(input('How many pennies?: '))
     
+
+
+def main():
+    userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
+
+    if userChoice == "report":
+        showResources()
+
+
 #Implementar opção de aceitar moedas com base na escolha de cafe do usuario
-elif userChoice == "espresso":
+    elif userChoice == "espresso":
+    # --------------------Exibindo catálogo de cafés ----------#
+        for i in range(len(coffes_options)):
+            for j in coffes_options[i]:
+                print(f"{j}:", coffes_options[i][j])
+            print('\n')
 
+        proccesCoins()          
+main()
 
-# --------------------Exibindo catálogo de cafés ----------#
-for i in range(len(coffes_options)):
-    for j in coffes_options[i]:
-        print(f"{j}:", coffes_options[i][j])
-    print('\n')
 
 #TODOS: IMPLEMENTAR A FEATURE DE PEGAR O CAFE ESCOLHIDO PELO USUARIO E SUBTRAIR OS VALORES DOS RECURSOS NECESSARIOS
 # 2 - ADICIONAR FEATURE PARA ACEITAR MOEDAS DO USUARIO
