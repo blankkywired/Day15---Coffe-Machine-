@@ -1,5 +1,5 @@
 # first step
-resources_value = {
+resources_InititalValues = {
     "water": 300,
     "milk": 200,
     "coffee": 100,
@@ -40,15 +40,19 @@ for i in range(len(coffes_options)):
         else:
             continue
 
-    
-
 userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
 if userChoice == "report":
-    #Exibindo recursos
-    for i in resources_value:
-        print(f"{i.capitalize()}: {resources_value[i]}")
+    #Exibindo recursos iniciais
+    print('-----------RESOURCES')
+    for i in resources_InititalValues:
+        print(f"{i.capitalize()}: {resources_InititalValues[i]}")
+    print('\n')
+    
+#Implementar opção de aceitar moedas com base na escolha de cafe do usuario
+elif userChoice == "espresso":
 
-# --------------------Exibindo catálogo ----------#
+
+# --------------------Exibindo catálogo de cafés ----------#
 for i in range(len(coffes_options)):
     for j in coffes_options[i]:
         print(f"{j}:", coffes_options[i][j])
