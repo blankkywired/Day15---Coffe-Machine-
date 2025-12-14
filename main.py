@@ -5,6 +5,13 @@ resources_InititalValues = {
     "coffee": 100,
     "money": 0
 }
+
+coinsValues = [{"quarters": 0.25}, {"dimes": 0.10}, {"nickles": 0.05}, {"pennies": 0.01}]
+for i in range(len(coinsValues)):
+    for j in coinsValues[i]:
+        print(coinsValues[i][j])
+
+print(coinsValues[3]["pennies"])
 coffes_options = [
     {
         "name": "espresso",
