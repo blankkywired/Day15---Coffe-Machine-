@@ -7,11 +7,11 @@ resources_InititalValues = {
 }
 
 coinsValues = [{"quarters": 0.25}, {"dimes": 0.10}, {"nickles": 0.05}, {"pennies": 0.01}]
-for i in range(len(coinsValues)):
-    for j in coinsValues[i]:
-        print(coinsValues[i][j])
+#for i in range(len(coinsValues)):
+ #   for j in coinsValues[i]:
+ #       print(coinsValues[i][j])
+#print(coinsValues[3]["pennies"])
 
-print(coinsValues[3]["pennies"])
 coffes_options = [
     {
         "name": "espresso",
@@ -50,16 +50,25 @@ for i in range(len(coffes_options)):
 def showResources():
     print('----------RESOURCES----------')
     for i in resources_InititalValues:
-        print(f"{i.capitalize()}: {resources_InititalValues[i]}")
+        if i != "money":
+            print(f"{i.capitalize()}: {resources_InititalValues[i]}ml")
+        else:
+            print(f"{i.capitalize()}: ${resources_InititalValues[i]}")
     print('\n')
- 
-def proccesCoins():
-    quarters = float(input('How many quarters?: '))
-    dimes = float(input('How many dimes?: '))
-    nickles = float(input('How many nickles?: '))
-    pennies = float(input('How many pennies?: '))
-    
 
+#Implementar opção de aceitar moedas com base na escolha de cafe do usuario 
+def proccesCoins():
+    quarters = float(input('How many quarters?: ')) * 0.25
+    dimes = float(input('How many dimes?: ')) * 0.10
+    nickles = float(input('How many nickles?: ')) * 0.05
+    pennies = float(input('How many pennies?: ')) * 0.01
+
+    totalSum = quarters + dimes + nickles + pennies
+    print(f"${totalSum:.2f}")
+    return totalSum
+
+ #def checkResources():
+    
 
 def main():
     userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
@@ -67,16 +76,17 @@ def main():
     if userChoice == "report":
         showResources()
 
-
-#Implementar opção de aceitar moedas com base na escolha de cafe do usuario
-    elif userChoice == "espresso":
-    # --------------------Exibindo catálogo de cafés ----------#
+    elif userChoice == "catalog":
+    # Exibindo catálogo de cafés 
+        print("----------CATALOG----------")
         for i in range(len(coffes_options)):
             for j in coffes_options[i]:
                 print(f"{j}:", coffes_options[i][j])
             print('\n')
-
-        proccesCoins()          
+    elif userChoice == "espresso" or userChoice == "latte" or userChoice == "cappuccino":
+        proccesCoins()
+ 
+              
 main()
 
 
