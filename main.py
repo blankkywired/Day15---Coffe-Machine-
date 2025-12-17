@@ -47,14 +47,21 @@ for i in range(len(coffes_options)):
         else:
             continue
 
-def showResources():
-    print('----------RESOURCES----------')
-    for i in resources_InititalValues:
-        if i != "money":
-            print(f"{i.capitalize()}: {resources_InititalValues[i]}ml")
-        else:
-            print(f"{i.capitalize()}: ${resources_InititalValues[i]}")
-    print('\n')
+def showResources_and_catalog(answer):
+    if answer == "report":
+        print('----------RESOURCES----------')
+        for i in resources_InititalValues:
+            if i != "money":
+                print(f"{i.capitalize()}: {resources_InititalValues[i]}ml")
+            else:
+                print(f"{i.capitalize()}: ${resources_InititalValues[i]}")
+        print('\n')
+    elif answer == "catalog":
+        print("----------CATALOG----------")
+        for i in range(len(coffes_options)):
+            for j in coffes_options[i]:
+                print(f"{j}:", coffes_options[i][j])
+            print('\n')
 
 #Implementar opção de aceitar moedas com base na escolha de cafe do usuario 
 def proccesCoins():
@@ -67,26 +74,24 @@ def proccesCoins():
     print(f"${totalSum:.2f}")
     return totalSum
 
- #def checkResources():
-    
-
 def main():
     userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
+    showResources_and_catalog(userChoice)
 
-    if userChoice == "report":
-        showResources()
-
-    elif userChoice == "catalog":
-    # Exibindo catálogo de cafés 
-        print("----------CATALOG----------")
-        for i in range(len(coffes_options)):
-            for j in coffes_options[i]:
-                print(f"{j}:", coffes_options[i][j])
-            print('\n')
-    elif userChoice == "espresso" or userChoice == "latte" or userChoice == "cappuccino":
+    if userChoice == "espresso" or userChoice == "latte" or userChoice == "cappuccino":
         proccesCoins()
- 
-              
+        return userChoice
+    
+
+#busca pelo preço com base no café escolhido
+#Eu nao tenho ideia de como esse loop conseguiu retornar o exato valor do cafe escolhido pelo usuario apos chamar a função main
+for i in range(0, len(coffee_list)):
+    choice = main()
+    for j in coffes_options[i]:
+        if j == "money":
+            print(coffes_options[i][j])
+
+
 main()
 
 
