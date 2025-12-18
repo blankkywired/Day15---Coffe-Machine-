@@ -82,28 +82,15 @@ def main():
         proccesCoins()
         return userChoice
     
-
-#busca pelo preço com base no café escolhido
-#Eu nao tenho ideia de como esse loop conseguiu retornar o exato valor do cafe escolhido pelo usuario apos chamar a função main
-index = 0
 def find_coffee_value():
-    choice = main()
-
-    for i in range(0, len(coffee_list)):
-        #choice = main()
-        for j in coffes_options[i]:
-            if j == "name":
-                if coffes_options[i][j] == choice:
-                    if choice == "espresso":
-                        value = 1.50
-                    elif choice == "latte":
-                        value = 2.50
-                    else:
-                        value = 3.50
-    return value
-
-
-
+    choice = main() #Guardando escolha do usuario
+    for coffee in coffes_options:
+        for name in coffee:
+            if coffee["name"] == choice:
+                valueCoffee = coffee["money"]
+                return valueCoffee
+print(find_coffee_value())
+                
 
 #TODOS: IMPLEMENTAR A FEATURE DE PEGAR O CAFE ESCOLHIDO PELO USUARIO E SUBTRAIR OS VALORES DOS RECURSOS NECESSARIOS
 # 2 - ADICIONAR FEATURE PARA ACEITAR MOEDAS DO USUARIO
