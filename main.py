@@ -36,16 +36,7 @@ coffes_options = [
         "money": 3.50
     }
 ]
-coffee_list = []
-# --------------------Adicionando opções de cafe para a lista ----------#
-for i in range(len(coffes_options)):
-    for j in coffes_options[i]:
-        if j == "name":
-            #print(coffes_options[i][j])
-            coffee_list.append(coffes_options[i][j])
 
-        else:
-            continue
 
 def showResources_and_catalog(answer):
     """Display machine resources to the user.Exibe resources"""
@@ -75,32 +66,37 @@ def insert_coins():
 
     totalSum = quarters + dimes + nickles + pennies
     print(f"${totalSum:.2f}")
+    #AMOUNT
     return totalSum
 
 
 def main():
- 
     userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
     showResources_and_catalog(userChoice)
 
     if userChoice == "espresso" or userChoice == "latte" or userChoice == "cappuccino":
-        insert_coins()
-        check_value(insert_coins)
+        transaction(find_coffee_price(userChoice), insert_coins())        
         return userChoice
         
     
-def find_coffee_value():
+def find_coffee_price(coffee_option):
     """Find the price of coffee based on the user's choice."""
-    choice = main() #Guardando escolha do usuario
+     #Guardando escolha do usuario
     for coffee in coffes_options:
         for name in coffee:
-            if coffee["name"] == choice:
-                valueCoffee = coffee["money"]
-                return valueCoffee
-#print(find_coffee_value())
-def check_value(value):
-    if value < find_coffee_value():
-        print('Valor insuficiente')
+            if coffee["name"] == coffee_option:
+                coffee_price = coffee["money"]
+    
+    return coffee_price
+
+def transaction(coffee_choosen, amount):
+    if coffee_choosen > amount:
+        print("Sorry, that's no enough money. Money refunded")
+        print(f"Coffee value: {coffee_choosen}. Amount:{amount}")
+
+
+
+
 main()
 
 #TODOS: IMPLEMENTAR A FEATURE DE PEGAR O CAFE ESCOLHIDO PELO USUARIO E SUBTRAIR OS VALORES DOS RECURSOS NECESSARIOS
