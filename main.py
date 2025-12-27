@@ -69,8 +69,9 @@ def insert_coins():
     #AMOUNT
     return totalSum
 
-
+userChoice = ""
 def main():
+    global userChoice
     userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
     showResources_and_catalog(userChoice)
 
@@ -89,10 +90,17 @@ def find_coffee_price(coffee_option):
     
     return coffee_price
 
-def transaction(coffee_choosen, amount):
-    if coffee_choosen > amount:
+def transaction(coffe_choosen_price, amount):
+    if coffe_choosen_price > amount:
         print("Sorry, that's no enough money. Money refunded")
-        print(f"Coffee value: {coffee_choosen}. Amount:{amount}")
+        print(f"Coffee value: {coffe_choosen_price}. Amount:{amount}")
+
+    else:
+        #Troco do usuario
+        if (amount - coffe_choosen_price) > 0:
+            exchange = amount - coffe_choosen_price
+            print(f"Here's your ${round(exchange)} in change")
+        print(f"Here's your coffee. Enjoy your {userChoice} ☕!")
 
 
 
