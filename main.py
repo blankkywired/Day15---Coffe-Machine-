@@ -5,40 +5,42 @@ resources_InititalValues = {
     "coffee": 100,
     "money": 0
 }
+# first step
+resources_InititalValues = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100,
+    "cost": 0
+}
 
-coinsValues = [{"quarters": 0.25}, {"dimes": 0.10}, {"nickles": 0.05}, {"pennies": 0.01}]
-#for i in range(len(coinsValues)):
- #   for j in coinsValues[i]:
- #       print(coinsValues[i][j])
-#print(coinsValues[3]["pennies"])
-
-coffes_options = [
-    {
-        "name": "espresso",
-        "water": 50,
-        "coffee": 18,
-        "money": 1.50
+coffee_options = {
+    "espresso": {
+        "ingredients": {
+            "water": 50,
+            "coffee": 18,
+            "cost": 1.50
+        }
     },
-
-    {
-        "name": "latte",
-        "water": 200,
-        "coffee": 24,
-        "milk": 150,
-        "money": 2.50
+    "latte": {
+        "ingredients": {
+            "water": 200,
+            "coffee": 24,
+            "milk": 150,
+            "cost": 2.50
+        }
     },
-
-    {
-        "name": "cappuccino",
-        "water": 250,
-        "coffee": 24,
-        "milk": 100,
-        "money": 3.50
+    "cappuccino": {
+        "ingredients": {
+            "water": 250,
+            "coffee": 24,
+            "milk": 100,
+            "cost": 3.50
+        }
     }
-]
+}
 
 
-def showResources_and_catalog(answer):
+def resources_catalog(answer):
     """Display machine resources to the user.Exibe resources"""
     if answer == "report":
         print('----------RESOURCES----------')
@@ -49,10 +51,13 @@ def showResources_and_catalog(answer):
                 print(f"{i.capitalize()}: ${resources_InititalValues[i]}")
         print('\n')
     elif answer == "catalog":
-        print("----------CATALOG----------")
-        for i in range(len(coffes_options)):
-            for j in coffes_options[i]:
-                print(f"{j}:", coffes_options[i][j])
+        print('----------CATALOG----------')
+        for coffee in coffee_options:
+            #print(coffee)
+            print(coffee.upper()) # Exibir nome do café
+            for ingredients in coffee_options[coffee]:
+                for components in coffee_options[coffee][ingredients]: #Percorrer dentro do dicionario de ingredients de cada café
+                    print( components , coffee_options[coffee][ingredients][components])
             print('\n')
 
 #Implementar opção de aceitar moedas com base na escolha de cafe do usuario 
@@ -69,28 +74,31 @@ def insert_coins():
     #AMOUNT
     return totalSum
 
-userChoice = ""
+choice = ""
 def main():
-    global userChoice
-    userChoice = input('What would you like? (espresso/latte/cappuccino): ').lower()
-    showResources_and_catalog(userChoice)
+    global choice
+    choice = input('What would you like? (espresso/latte/cappuccino): ').lower()
+    
+    if choice == "espresso" or choice == "latte" or choice == "cappuccino":
+        transaction(find_coffee_price(choice), insert_coins())        
+        return choice
+    elif choice == "report" or choice == "catalog":     
+        resources_catalog(choice)
 
-    if userChoice == "espresso" or userChoice == "latte" or userChoice == "cappuccino":
-        transaction(find_coffee_price(userChoice), insert_coins())        
-        return userChoice
-        
-    
-def find_coffee_price(coffee_option):
-    """Find the price of coffee based on the user's choice."""
-     #Guardando escolha do usuario
-    for coffee in coffes_options:
-        for name in coffee:
-            if coffee["name"] == coffee_option:
-                coffee_price = coffee["money"]
-    
-    return coffee_price
+def find_coffee_price(choice):
+    for coffee in coffee_options:
+        if coffee == choice:
+            for ingredients in coffee_options[coffee]:
+                for components in coffee_options[coffee][ingredients]:
+                    if components == "cost":
+                        coffee_cost = coffee_options[coffee][ingredients][components]
+                        return coffee_cost
+
+
 
 def transaction(coffe_choosen_price, amount):
+    """Check if the buyment can be executed with successfully"""
+
     if coffe_choosen_price > amount:
         print("Sorry, that's no enough money. Money refunded")
         print(f"Coffee value: {coffe_choosen_price}. Amount:{amount}")
@@ -100,12 +108,8 @@ def transaction(coffe_choosen_price, amount):
         if (amount - coffe_choosen_price) > 0:
             exchange = amount - coffe_choosen_price
             print(f"Here's your ${round(exchange)} in change")
-        print(f"Here's your coffee. Enjoy your {userChoice} ☕!")
-
-
-
+        print(f"Here's your coffee. Enjoy your {choice} ☕!")
+       # making_coffee(choice)
+#def making_coffee(coffee):
 
 main()
-
-#TODOS: IMPLEMENTAR A FEATURE DE PEGAR O CAFE ESCOLHIDO PELO USUARIO E SUBTRAIR OS VALORES DOS RECURSOS NECESSARIOS
-# 2 - ADICIONAR FEATURE PARA ACEITAR MOEDAS DO USUARIO
