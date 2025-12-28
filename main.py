@@ -33,7 +33,9 @@ coffee_options = {
     }
 }
 revenue = 0
-
+machine_off = False
+def off_machine(value):
+    return value == 'off'
 def resources_catalog(answer):
     """Display machine resources to the user.Exibe resources"""
     if answer == "report":
@@ -75,10 +77,10 @@ def insert_coins():
 def find_coffee_price(choice):
     for coffee in coffee_options:
         if coffee == choice:
-            for ingredients in coffee_options[coffee]:
-                for components in coffee_options[coffee][ingredients]:
+            order = coffee_options[choice]['ingredients']
+            for components in order:
                     if components == "cost":
-                        coffee_cost = coffee_options[coffee][ingredients][components]
+                        coffee_cost = coffee_options[choice]['ingredients'][components]
                         return coffee_cost
 
 
@@ -94,7 +96,7 @@ def transaction(coffe_choosen_price, amount):
         #Troco do usuario
         if (amount - coffe_choosen_price) > 0:
             exchange = amount - coffe_choosen_price
-            print(f"Here's your ${round(exchange)} in change")
+            print(f"Here's your ${round(exchange , 2)} in change")
         print(f"Here's your coffee. Enjoy your {choice} ☕!")
         return True
        # making_coffee(choice)
@@ -107,20 +109,29 @@ def resources_sufficient(coffee):
        
 def make_coffee(coffee, amount):
     global revenue
+
     order = coffee_options[coffee]['ingredients']
     for item in order:
         resources_InititalValues[item] = resources_InititalValues[item] - order[item]
         revenue = coffee_options[coffee]['ingredients']['cost']
+        machine_off = False
 choice = ""
 def main():
+    global machine_off
     global choice
-    choice = input('What would you like? (espresso/latte/cappuccino): ').lower()
+    machine_off = False
+    while not machine_off:
+        choice = input('What would you like? (espresso/latte/cappuccino): ').lower()
+
+        
+        if choice == "espresso" or choice == "latte" or choice == "cappuccino":
+            if transaction(find_coffee_price(choice), insert_coins()) == True:
+                make_coffee(choice, totalSum)
+            return choice   
+        elif choice == "report" or choice == "catalog":     
+            resources_catalog(choice)
     
-    if choice == "espresso" or choice == "latte" or choice == "cappuccino":
-        if transaction(find_coffee_price(choice), insert_coins()) == True:
-            make_coffee(choice, totalSum)        
-        return choice   
-    elif choice == "report" or choice == "catalog":     
-        resources_catalog(choice)
-    
-main()
+        elif choice == "off":
+            machine_off = off_machine(choice)
+while not machine_off:
+    main()
