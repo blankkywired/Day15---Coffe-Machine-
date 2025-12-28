@@ -33,7 +33,7 @@ coffee_options = {
     }
 }
 revenue = 0
-machine_off = False
+
 def off_machine(value):
     return value == 'off'
 def resources_catalog(answer):
@@ -114,7 +114,6 @@ def make_coffee(coffee):
     for item in order:
         if item != 'cost':
             resources_InititalValues[item] = resources_InititalValues[item] - order[item]
-            machine_off = False
         else:
             resources_InititalValues[item] = resources_InititalValues[item] + order[item] #Adicionando os valores que a maquina recebe
             
@@ -127,7 +126,6 @@ while True:
 
     if choice == "off":
         break
-
     elif choice == "espresso" or choice == "latte" or choice == "cappuccino":
         if resources_sufficient(choice):
             if transaction(find_coffee_price(choice), insert_coins()):
