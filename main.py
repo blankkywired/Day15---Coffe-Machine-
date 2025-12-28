@@ -41,7 +41,7 @@ def resources_catalog(answer):
     if answer == "report":
         print('----------RESOURCES----------')
         for i in resources_InititalValues:
-            if i != "money":
+            if i != "cost":
                 print(f"{i.capitalize()}: {resources_InititalValues[i]}ml")
             else:
                 print(f"{i.capitalize()}: ${resources_InititalValues[i]}")
@@ -73,8 +73,8 @@ def insert_coins():
     return totalSum
 
 
-
 def find_coffee_price(choice):
+    global coffee_cost
     for coffee in coffee_options:
         if coffee == choice:
             order = coffee_options[choice]['ingredients']
@@ -82,8 +82,6 @@ def find_coffee_price(choice):
                     if components == "cost":
                         coffee_cost = coffee_options[choice]['ingredients'][components]
                         return coffee_cost
-
-
 
 def transaction(coffe_choosen_price, amount):
     """Check if the buyment can be executed with successfully"""
@@ -97,17 +95,19 @@ def transaction(coffe_choosen_price, amount):
         if (amount - coffe_choosen_price) > 0:
             exchange = amount - coffe_choosen_price
             print(f"Here's your ${round(exchange , 2)} in change")
-        print(f"Here's your coffee. Enjoy your {choice} ☕!")
+
         return True
        # making_coffee(choice)
 def resources_sufficient(coffee):
-    order = coffee_options[coffee]['ingredients']['cost']
+    order = coffee_options[coffee]['ingredients']
     for item in order:
        if order[item] >  resources_InititalValues[item]:
             print('Sorry, there is no more resources enough')
             return False
+       else:
+           return True
        
-def make_coffee(coffee, amount):
+def make_coffee(coffee):
     global revenue
 
     order = coffee_options[coffee]['ingredients']
@@ -115,23 +115,21 @@ def make_coffee(coffee, amount):
         resources_InititalValues[item] = resources_InititalValues[item] - order[item]
         revenue = coffee_options[coffee]['ingredients']['cost']
         machine_off = False
-choice = ""
-def main():
-    global machine_off
-    global choice
-    machine_off = False
-    while not machine_off:
-        choice = input('What would you like? (espresso/latte/cappuccino): ').lower()
-
-        
-        if choice == "espresso" or choice == "latte" or choice == "cappuccino":
-            if transaction(find_coffee_price(choice), insert_coins()) == True:
-                make_coffee(choice, totalSum)
-            return choice   
-        elif choice == "report" or choice == "catalog":     
-            resources_catalog(choice)
+    print(f"Here's your coffee. Enjoy your {choice} ☕!")
     
-        elif choice == "off":
-            machine_off = off_machine(choice)
-while not machine_off:
-    main()
+
+choice = ""
+while True:
+    choice = input('What would you like? (espresso/latte/cappuccino): ').lower()
+
+    if choice == "off":
+        break
+
+    elif choice == "espresso" or choice == "latte" or choice == "cappuccino":
+        if resources_sufficient(choice):
+            if transaction(find_coffee_price(choice), insert_coins()):
+                make_coffee(choice)
+    elif choice == "report":
+        resources_catalog(choice)
+
+    
