@@ -106,15 +106,18 @@ def resources_sufficient(coffee):
             return False
        else:
            return True
-       
+money = 0
 def make_coffee(coffee):
     global revenue
 
     order = coffee_options[coffee]['ingredients']
     for item in order:
-        resources_InititalValues[item] = resources_InititalValues[item] - order[item]
-        revenue = coffee_options[coffee]['ingredients']['cost']
-        machine_off = False
+        if item != 'cost':
+            resources_InititalValues[item] = resources_InititalValues[item] - order[item]
+            machine_off = False
+        else:
+            resources_InititalValues[item] = resources_InititalValues[item] + order[item] #Adicionando os valores que a maquina recebe
+            
     print(f"Here's your coffee. Enjoy your {choice} ☕!")
     
 
