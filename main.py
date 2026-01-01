@@ -88,7 +88,7 @@ def transaction(coffe_choosen_price, amount):
     
     if coffe_choosen_price > amount:
         print("Sorry, that's no enough money. Money refunded")
-        print(f"Coffee value: {coffe_choosen_price}. Amount:{amount}")
+        print(f"Coffee value: ${(coffe_choosen_price):.2f}. Amount: ${(amount):.2f}")
         return False
     else:
         #Troco do usuario
@@ -106,7 +106,7 @@ def resources_sufficient(coffee):
             return False
        else:
            return True
-money = 0
+
 def make_coffee(coffee):
     global revenue
 
