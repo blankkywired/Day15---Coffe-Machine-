@@ -85,13 +85,15 @@ def find_coffee_price(choice):
 
 def transaction(coffe_choosen_price, amount):
     """Check if the buyment can be executed with successfully"""
-    
+   #Checa se o valor do café é maior do que o preço que o usuario ofertou 
     if coffe_choosen_price > amount:
         print("Sorry, that's no enough money. Money refunded")
         print(f"Coffee value: ${(coffe_choosen_price):.2f}. Amount: ${(amount):.2f}")
         return False
     else:
         #Troco do usuario
+        #Aqui subtraimos o valor ofertado pelo valor do cafe escolhido, caso a diferença seja maior que 0 devolvemos o troco
+        
         if (amount - coffe_choosen_price) > 0:
             exchange = amount - coffe_choosen_price
             print(f"Here's your ${round(exchange , 2)} in change")
