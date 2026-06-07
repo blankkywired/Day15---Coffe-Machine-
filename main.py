@@ -1,4 +1,4 @@
-
+from prettytable import PrettyTable
 # first step
 resources_InititalValues = {
     "water": 300,
@@ -34,8 +34,10 @@ coffee_options = {
 }
 revenue = 0
 
-def off_machine(value):
-    return value == 'off'
+tableCatalog = PrettyTable()
+tableCatalog.add_column("Flavor's coffee", ["Espresso", "Latte", "Cappuccino"])
+tableCatalog.add_column("Prices", ["$1.50", "$2.50", "$3.50"])
+print(tableCatalog)
 def resources_catalog(answer):
     """Display machine resources to the user.Exibe resources"""
     if answer == "report":
@@ -56,7 +58,6 @@ def resources_catalog(answer):
                     print( components , coffee_options[coffee][ingredients][components])
             print('\n')
 
-#Implementar opção de aceitar moedas com base na escolha de cafe do usuario 
 totalSum = 0
 def insert_coins():
     global totalSum
@@ -72,7 +73,7 @@ def insert_coins():
     #AMOUNT
     return totalSum
 
-
+#Achar o preço do café com base na escolha do usuário, retorna o valor coffee_cost
 def find_coffee_price(choice):
     global coffee_cost
     for coffee in coffee_options:
@@ -85,38 +86,38 @@ def find_coffee_price(choice):
 
 def transaction(coffe_choosen_price, amount):
     """Check if the buyment can be executed with successfully"""
-    
+    #Verifica se o preço do cafe é maior do que o dinheiro ofertado pelo usuario
     if coffe_choosen_price > amount:
         print("Sorry, that's no enough money. Money refunded")
         print(f"Coffee value: ${(coffe_choosen_price):.2f}. Amount: ${(amount):.2f}")
         return False
     else:
-        #Troco do usuario
+        #Retorna o Troco do usuario
         if (amount - coffe_choosen_price) > 0:
             exchange = amount - coffe_choosen_price
             print(f"Here's your ${round(exchange , 2)} in change")
-
         return True
+    
+
        # making_coffee(choice)
 def resources_sufficient(coffee):
     order = coffee_options[coffee]['ingredients']
     for item in order:
-       if order[item] >  resources_InititalValues[item]:
+        if item == 'cost':
+            continue
+        if order[item] > resources_InititalValues[item]:
             print('Sorry, there is no more resources enough')
             return False
-       else:
-           return True
+    return True
 
 def make_coffee(coffee):
     global revenue
-
     order = coffee_options[coffee]['ingredients']
     for item in order:
         if item != 'cost':
             resources_InititalValues[item] = resources_InititalValues[item] - order[item]
         else:
-            resources_InititalValues[item] = resources_InititalValues[item] + order[item] #Adicionando os valores que a maquina recebe
-            
+            resources_InititalValues[item] = resources_InititalValues[item] + order[item] #Adicionando os valores que a maquina recebe       
     print(f"Here's your coffee. Enjoy your {choice} ☕!")
     
 
