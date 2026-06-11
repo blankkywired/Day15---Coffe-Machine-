@@ -93,7 +93,7 @@ def transaction(coffe_choosen_price, amount):
     else:
         #Troco do usuario
         #Aqui subtraimos o valor ofertado pelo valor do cafe escolhido, caso a diferença seja maior que 0 devolvemos o troco
-        
+
         if (amount - coffe_choosen_price) > 0:
             exchange = amount - coffe_choosen_price
             print(f"Here's your ${round(exchange , 2)} in change")
@@ -103,11 +103,12 @@ def transaction(coffe_choosen_price, amount):
 def resources_sufficient(coffee):
     order = coffee_options[coffee]['ingredients']
     for item in order:
+       if item == "cost":
+           continue
        if order[item] >  resources_InititalValues[item]:
             print('Sorry, there is no more resources enough')
             return False
-       else:
-           return True
+    return True
 
 def make_coffee(coffee):
     global revenue
@@ -134,5 +135,6 @@ while True:
                 make_coffee(choice)
     elif choice == "report":
         resources_catalog(choice)
-
+    elif choice == "catalog":
+        resources_catalog(choice)
     
